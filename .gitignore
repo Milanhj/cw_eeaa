@@ -2,3 +2,13 @@
 .Rhistory
 .RData
 .Ruserdata
+
+
+results/*.rds
+results/*.dta
+results/*.do*
+results/*.xlsx
+results/*.rda
+
+
+0_clean_data.R
