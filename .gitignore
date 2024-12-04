@@ -3,12 +3,11 @@
 .RData
 .Ruserdata
 
-.Rproj
-results/*.rds
-results/*.dta
-results/*.do*
-results/*.xlsx
-results/*.rda
+# Ignore the rproject
+cw_eeaa.Rproj
 
+# Anything in results
+results/*
 
+# Data cleaning script
 0_clean_data.R
