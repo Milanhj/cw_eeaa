@@ -1,32 +1,26 @@
 
-# Modeling PC clocks and CW ----------------------------------------------------
-
+# Modeling PC clocks and CW 
 # DNAmAge and Conditional Weight stats: 
 
-
-# Load Packages and Data ------------------------------------------------------ 
 
 library(tidyverse)
 library(stargazer)
 library(QuantPsyc)
 library(jtools)
 
-set.seed(1234)
 
-
+# Load Data --------------------------------------------------------------------
 
 # Variables for modeling: clocks and cw
-# male_data, female_data
-
 load("results/bestbwres.rda") 
 
 
 
 
-# Females --------------------------------------------------------------------
+# Females ----------------------------------------------------------------------
 
 
-## horvath -----------
+## horvath ----------------
 
 horvath_f <- lm(pchorvath1 ~ bestbwresf + cw24f + cw91f + cwadultf + 
      bmif + gradecom + dhinc05 + pregblood + dailysmoke + icageblood, 
@@ -46,6 +40,7 @@ hannum_f <- lm(pchannum ~ bestbwresf + cw24f + cw91f + cwadultf +
 hannum_f_stats <- summary(hannum_f)
 
 
+
 ## phenoage ----------------
 
 phenoage_f <- lm(pcphenoage ~ bestbwresf + cw24f + cw91f + cwadultf + 
@@ -55,6 +50,7 @@ phenoage_f <- lm(pcphenoage ~ bestbwresf + cw24f + cw91f + cwadultf +
 phenoage_f_stats <- summary(phenoage_f)
 
 
+
 ## grimage --------------------
 
 grimage_f <- lm(pcgrimage ~ bestbwresf + cw24f + cw91f + cwadultf + 
@@ -62,6 +58,7 @@ grimage_f <- lm(pcgrimage ~ bestbwresf + cw24f + cw91f + cwadultf +
    data = female_data)
 
 grimage_f_stats <- summary(grimage_f)
+
 
 
 ## pcdnamtl --------------------
@@ -84,6 +81,7 @@ dunedinpoam_45_f <- lm(dunedinpoam_45 ~ bestbwresf + cw24f + cw91f + cwadultf +
 dunedinpoam_45_f_stats <- summary(dunedinpoam_45_f)
 
 
+
 ## combined table ---------------------
 
 table_2_f <- stargazer(horvath_f, hannum_f, phenoage_f, 
@@ -96,7 +94,7 @@ table_2_f <- stargazer(horvath_f, hannum_f, phenoage_f,
 
 )
 
-stargazer(dunedinpoam_45_f,  
+table_2_dun_f <- stargazer(dunedinpoam_45_f,  
           type = "text",
           dep.var.labels = c("pcdunedinpoam_45"),
           title = "Table 2: Regression Results",
@@ -120,6 +118,7 @@ horvath_m_stats <- summary(horvath_m)
 
 
 
+
 ## hannum -----------------------
 
 
@@ -130,6 +129,8 @@ hannum_m <- lm(pchannum ~ bestbwresm + cw24m + cw91m + cwadultm + bmi05 + gradec
 hannum_m_stats <- summary(hannum_m)
 
 
+
+
 ## phenoage ---------------------
 
 phenoage_m <- lm(pcphenoage ~ bestbwresm + cw24m + cw91m + cwadultm + bmi05 + gradecom + 
@@ -137,6 +138,8 @@ phenoage_m <- lm(pcphenoage ~ bestbwresm + cw24m + cw91m + cwadultm + bmi05 + gr
                  data = male_data)
 
 phenoage_m_stats <- summary(phenoage_m)
+
+
 
 
 ## grimage ----------------------
@@ -150,6 +153,7 @@ grimage_m_stats <- summary(grimage_m)
 
 
 
+
 ## pcdnamtl --------------------
 
 pcdnamtl_m <- lm(pcdnamtl ~ bestbwresm + cw24m + cw91m + cwadultm + bmi05 + gradecom + 
@@ -157,6 +161,7 @@ pcdnamtl_m <- lm(pcdnamtl ~ bestbwresm + cw24m + cw91m + cwadultm + bmi05 + grad
                  data = male_data)
 
 pcdnamtl_m_stats <- summary(pcdnamtl_m)
+
 
 
 
@@ -168,6 +173,7 @@ dunedinpoam_45_m <- lm(dunedinpoam_45 ~ bestbwresm + cw24m + cw91m + cwadultm + 
 
 
 dunedinpoam_45_m_stats <- summary(dunedinpoam_45_m)
+
 
 
 
@@ -184,7 +190,7 @@ table_2_m <- stargazer(horvath_m, hannum_m, phenoage_m, grimage_m, pcdnamtl_m,
           
 )
 
-stargazer(dunedinpoam_45_m,
+table_2_dun_m <- stargazer(dunedinpoam_45_m,
           type = "text",
           dep.var.labels = c("pcdudedinpoam_45"),
           title = "Table 2: Regression Results",
@@ -195,12 +201,7 @@ stargazer(dunedinpoam_45_m,
 
 
 
-# Standardized coefficients CW models ---------------------------------------------------------------------
-
-# same models but reporting standardized coefficients 
-  # (beta = equivalent of correlation coefficients adjusting for everything else in the model)
-  # figures showing the strength of relationships with growth during different intervals
-
+# Standardized coefficients CW models ------------------------------------------
 
 
 ## Females ---------------------------------------------------
@@ -216,6 +217,7 @@ beta_dunedinpoam_f <- lm.beta(dunedinpoam_45_f)
 
 summary(beta_horvath_f)
 class(beta_horvath_f)
+
 
 
 ## Males ---------------------------------------------------
@@ -234,7 +236,7 @@ class(beta_horvath_m)
 
 
 
-## Beta Coefficients -----------------------------------------------------------
+## Coefficients ----------------------------------------------------------------
 
 
 ### Females --------------------------------------
@@ -356,8 +358,10 @@ beta_m_cwadult <- tibble(
 )
 
 
-# Save out -------------------------------------------------------------------------
+# Save out ---------------------------------------------------------------------
 
+
+# Model Outputs
 save(
   # female models
   beta_horvath_f, horvath_f, horvath_f_stats,
@@ -380,6 +384,7 @@ save(
 )
 
 
+# Tables
 save(table_2_f, table_2_m,
      file = "results/tables.rda")
 
