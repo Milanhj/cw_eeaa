@@ -19,9 +19,10 @@ Because epigenetic clocks predict changes in functional capacity that occur inde
 
 <br>
 
-#### CLHNS Data
+### CLHNS Data
 
 Anthropometric and methylation (DNAm) data  come from the the Cebu Longitudinal Health and Nutrition Survey (CLHNS), a long-running birth cohort study following women and their singleton offspring since 1983-4 in the Philippines.
+Weight was measured at birth (prenatal), 2 years (infant), 8.5 (childhood), and 21.5 years (adolescent-adult). 
 
 #### Conditional Weight
 
