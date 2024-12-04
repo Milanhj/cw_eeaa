@@ -3,7 +3,7 @@
 .RData
 .Ruserdata
 
-
+.Rproj
 results/*.rds
 results/*.dta
 results/*.do*
