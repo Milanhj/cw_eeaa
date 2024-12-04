@@ -11,3 +11,5 @@ results/*
 
 # Data cleaning script
 0_clean_data.R
+
+.gitignore
