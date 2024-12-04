@@ -1,14 +1,11 @@
 
 # CW Models
 
-
-# Load Packages and Data -------------------------------------------------------
-
-
 library(tidyverse)
 
 
-set.seed(1234)
+
+# Load Data --------------------------------------------------------------------
 
 
 # Load Data: weight measures, clocks, control variables 
@@ -20,9 +17,8 @@ model_data <- read_rds("results/wght_clocks_ses.rds")
 
 
 # BW measure with mean of mean bestbw but orthogonal to gestational age
-
-# bestbw = best measure of birth weight for individual
-# bestga = best estimate of gestational age
+  # bestbw = best measure of birth weight for individual
+  # bestga = best estimate of gestational age
 
 
 
@@ -51,7 +47,6 @@ b_adj_m_pred <- predict(bw_adj_m, male_data) %>%
 
 
 
-
 #### residuals ------------------------------
 
 
@@ -76,9 +71,8 @@ mean_bwm <- mean(male_data$bestbw)
 # Create measure of prenatal growth as sample mean + residual from prediction
 male_data <- male_data %>% 
   # convert to kilograms
-  mutate(bestbwresm = (resm + mean_bwm)/1000) %>% 
-  select(-pred)
-
+  mutate(bestbwresm = (resm + mean_bwm)/1000) %>% #mean_bwm
+  dplyr::select(-pred)
 
 
 
@@ -130,9 +124,8 @@ mean_bwf <- mean(female_data$bestbw)
 # Create measure of prenatal growth as sample mean + residual from prediction
 female_data <- female_data %>% 
   # convert to kilograms
-  mutate(bestbwresf = (resf + mean_bwf)/1000) %>% 
-  select(-pred)
-
+  mutate(bestbwresf = (resf + mean_bwf)/1000) %>% #mean_bwf
+  dplyr::select(-pred)
 
 
 
@@ -146,14 +139,14 @@ female_data <- female_data %>%
 # Age-squared terms
 male_data <- male_data %>% 
   mutate(age24_2 = age24^2,
-         age102_2 = age102^2
-         #age2005_2 = age258^2
+         age102_2 = age102^2,
+         icageblood_2 = icageblood^2
   )
 
 female_data <- female_data %>% 
   mutate(age24_2 = age24^2,
-         age102_2 = age102^2
-         #age2005_2 = age258^2
+         age102_2 = age102^2,
+         icageblood_2 = icageblood^2
   )
 
 
@@ -181,7 +174,7 @@ male_data <- predict(cw_24_m, male_data) %>%
   rename(cw_pred = `...1`) %>% 
   # calculate residuals to store as conditional weight measure
   mutate(cw24m = wt24 - cw_pred) %>% 
-  select(-cw_pred)
+  dplyr::select(-cw_pred)
 
 
 
@@ -208,7 +201,7 @@ female_data <- predict(cw_24_f, female_data) %>%
   rename(cw_pred = `...1`) %>% 
   # calculate residuals to store as conditional weight measure
   mutate(cw24f = wt24 - cw_pred) %>% 
-  select(-cw_pred)
+  dplyr::select(-cw_pred)
 
 
 
@@ -239,7 +232,7 @@ male_data <- predict(cw_91_m, male_data) %>%
   rename(cw_pred_91 = `...1`) %>% 
   # calculate residuals to store as conditional weight measure
   mutate(cw91m = wt102 - cw_pred_91) %>% 
-  select(-cw_pred_91)
+  dplyr::select(-cw_pred_91)
 
 
 
@@ -266,7 +259,7 @@ female_data <- predict(cw_91_f, female_data) %>%
   rename(cw_pred_91 = `...1`) %>%
   # calculate residuals to store as conditional weight measure
   mutate(cw91f = wt102 - cw_pred_91) %>% 
-  select(-cw_pred_91)
+  dplyr::select(-cw_pred_91)
 
 
 
@@ -280,7 +273,7 @@ female_data <- predict(cw_91_f, female_data) %>%
 
 
 # Regress adult weight on all conditional weight measures and age
-cw_05_m <- lm(weight05 ~ bestbwresm + cw24m + cw91m + age102 + age102_2, 
+cw_05_m <- lm(wta ~ bestbwresm + cw24m + cw91m + icageblood + icageblood_2, 
               data = male_data)
 
 summary(cw_05_m)
@@ -294,20 +287,20 @@ male_data <- predict(cw_05_m, male_data) %>%
   bind_cols(male_data) %>% 
   rename(cw_pred_05 = `...1`) %>% 
   # calculate residuals to store as conditional weight measure
-  mutate(cwadultm = wt102 - cw_pred_05) %>% 
-  select(-cw_pred_05)
+  mutate(cwadultm = wta - cw_pred_05) %>% 
+  dplyr::select(-cw_pred_05)
 
 
 
 
-### Females --------------------------------------------------------------------
+## Females --------------------------------------------------------------------
 
 
 ### model ----------------------
 
 
 # Regress adult weight on all conditional weight measures and age
-cw_05_f <- lm(weight05 ~ bestbwresf + cw24f + cw91f + age102 + age102_2, 
+cw_05_f <- lm(wta ~ bestbwresf + cw24f + cw91f + icageblood + icageblood_2, 
               data = female_data)
 
 summary(cw_05_f)
@@ -321,8 +314,8 @@ female_data <- predict(cw_05_f, female_data) %>%
   bind_cols(female_data) %>% 
   rename(cw_pred_05 = `...1`) %>% 
   # calculate residuals to store as conditional weight measure
-  mutate(cwadultf = wt102 - cw_pred_05) %>% 
-  select(-cw_pred_05)
+  mutate(cwadultf = wta - cw_pred_05) %>% 
+  dplyr::select(-cw_pred_05)
 
 
 
