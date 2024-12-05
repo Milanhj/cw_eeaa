@@ -10,7 +10,7 @@ a phenomenon associated with late life disease and mortality risk.
 
 <br>
 
-### Project Overview
+## Project Overview
 
 Low birth weight (BW), postnatal growth, and the timing of growth acceleration have been linked to risk of cardiovascular diseases and related conditions of aging. Evidence suggests that rapid infant growth is protective, while slow prenatal growth, followed by accelerated childhood growth predicts elevated long-term risk. 
 
@@ -19,7 +19,7 @@ Because epigenetic clocks predict changes in functional capacity that occur inde
 
 <br>
 
-### CLHNS Data
+## CLHNS Data
 
 Anthropometric and methylation (DNAm) data  come from the the [Cebu Longitudinal Health and Nutrition Survey](https://cebu.cpc.unc.edu/) (CLHNS), a long-running birth cohort study following women and their singleton offspring since 1983-4 in the Philippines.
 Weight was measured at birth (prenatal), 2 years (infant), 8.5 (childhood), and 21.5 years (adolescent-adult). 
@@ -40,7 +40,7 @@ These clocks predict chronological age (Horvath; Hannum), biomarkers of late-lif
 <br>
 
 
-### File Structure
+## File Structure
 
 
 **01_cw_models.R** : Calculate CW models
